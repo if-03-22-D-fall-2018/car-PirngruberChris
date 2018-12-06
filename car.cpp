@@ -46,16 +46,28 @@ void init(){
   for (int i = 0; i < 6; i++) {
     car_park[i]->is_available = true;
     car_park[i]->accelerate = 0;
+    car_park[i]->speed = 0;
   }
 }
 void set_acceleration_rate(Car car, double rate){
-  for (int i = 0; i < 6; i++) {
-    for (int j = 0; j < 2; j++) {
-      
-    }
-    car_park[i]->accelerate = rate;
+  if (rate > 1.0 && car->car_type == AIXAM) {
+    car->accelerate = 1.0;
+  }
+  else if (rate > 2.26 && car->car_type == FIAT_MULTIPLA) {
+    car->accelerate = 2.26;
+  }
+  else if (rate > 3.14 && car->car_type == JEEP) {
+    car->accelerate = 3.14;
+  }
+  else if (rate < -8.0) {
+    car->accelerate = -8.0;
+  }
+  else{
+    car->accelerate = rate;
   }
 }
 void accelerate(Car car){
+  car->speed = car->accelerate * 4;
+  
 
 }
